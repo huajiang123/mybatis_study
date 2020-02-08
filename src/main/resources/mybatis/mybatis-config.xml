@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--
+    如果属性在不只一个地方进行了配置，那么 MyBatis 将按照下面的顺序来加载：
+    1,在 properties 元素体内指定的属性首先被读取。
+    2,然后根据 properties 元素中的 resource 属性读取类路径下属性文件或根据 url 属性指定的路径读取属性文件，并覆盖已读取的同名属性。
+    3,最后读取作为方法参数传递的属性，并覆盖已读取的同名属性。
+    通过方法参数传递的属性的优先级最高，
+    resource 或 url 指定的属性优先级中等，
+    在 properties 元素体中指定的属性优先级最低-->
+    <properties resource="mybatis/config.properties">
+
+        <!--<property name="username" value="${username:ut_user}"/>
+        如果属性 'username' 没有被配置，'username' 属性的值将为 'ut_user' -->
+
+        <!--<property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/>
+         启用默认值特性 -->
+
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+    </properties>
+
+
+   <!-- <settings>
+        <setting name="" value=""/>
+    </settings>-->
+
+    <!--实现java类型与jdbc类型的映射-->
+    <typeHandlers>
+       <typeHandler handler="com.huajiang.mybatis.util.MyHandler" javaType="String" jdbcType="VACHAR"/>
+    </typeHandlers>
+
+    <!--ObjectFactory 接口很简单，它包含两个创建用的方法，一个是处理默认构造方法的，
+    另外一个是处理带参数的构造方法的。
+    最后，setProperties 方法可以被用来配置 ObjectFactory，
+    在初始化你的 ObjectFactory 实例后， o
+    bjectFactory 元素体中定义的属性会被传递给 setProperties 方法-->
+    <objectFactory type="com.huajiang.mybatis.util.MyObjectFactory">
+        <property name="someProperty" value="100"/>
+    </objectFactory>
+
+    <plugins>
+        <plugin interceptor="com.huajiang.mybatis.util.MyPlugin">
+            <property name="example" value="100"/>
+        </plugin>
+    </plugins>
+
+
+    <typeAliases>
+        <package name="com.huajiang.mybatis.pojo"/>
+    </typeAliases>
+
+    <!--MyBatis 可以配置成适应多种环境，这种机制有助于将 SQL 映射应用于多种数据库之中，
+    现实情况下有多种理由需要这么做。例如，开发、测试和生产环境需要有不同的配置；
+    或者想在具有相同 Schema 的多个生产数据库中 使用相同的 SQL 映射
+    不过要记住：尽管可以配置多个环境，但每个 SqlSessionFactory 实例只能选择一种环境-->
+    <environments default="development">
+        <environment id="development">
+            <!--在 MyBatis 中有两种类型的事务管理器（也就是 type=”[JDBC|MANAGED]”）：
+             JDBC – 这个配置就是直接使用了 JDBC 的提交和回滚设置，它依赖于从数据源得到的连接来管理事务作用域。
+             MANAGED – 这个配置几乎没做什么。它从来不提交或回滚一个连接，而是让容器来管理事务的整个生命周期（比如 JEE 应用服务器的上下文）。
+             默认情况下它会关闭连接，然而一些容器并不希望这样，因此需要将 closeConnection 属性设置为 false 来阻止它默认的关闭行为
+             如果你正在使用 Spring + MyBatis，则没有必要配置事务管理器， 因为 Spring 模块会使用自带的管理器来覆盖前面的配置。-->
+            <transactionManager type="JDBC"/>
+            <!--有三种内建的数据源类型（也就是 type=”[UNPOOLED|POOLED|JNDI]”）：-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+        <environment id="test">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="mybatis/mapper/UserDao.xml"/>
+    </mappers>
+</configuration>

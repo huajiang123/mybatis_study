@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper>
+    <!--默认情况下，只启用了本地的会话缓存，它仅仅对一个会话中的数据进行缓存
+    这个简单语句的效果如下:
+    映射语句文件中的所有 select 语句的结果将会被缓存。
+    映射语句文件中的所有 insert、update 和 delete 语句会刷新缓存。
+    缓存会使用最近最少使用算法（LRU, Least Recently Used）算法来清除不需要的缓存。
+    缓存不会定时进行刷新（也就是说，没有刷新间隔）。
+    缓存会保存列表或对象（无论查询方法返回哪种）的 1024 个引用。
+    缓存会被视为读/写缓存，这意味着获取到的对象并不是共享的，可以安全地被调用者修改，而不干扰其他调用者或线程所做的潜在修改-->
+    <cache/>
+
+
+
+
+    <!--自动映射
+     NONE - 禁用自动映射。仅对手动映射的属性进行映射。
+     PARTIAL - 对除在内部定义了嵌套结果映射（也就是连接的属性）以外的属性进行映射
+     FULL - 自动映射所有属性
+     默认值是 PARTIAL，这是有原因的。当对连接查询的结果使用 FULL 时，
+     连接查询会在同一行中获取多个不同实体的数据，因此可能导致非预期的映射
+    mapUnderscoreToCamelCase 设置为 true
+    甚至在提供了结果映射后，自动映射也能工作。
+    在这种情况下，对于每一个结果映射，在结果集出现的列，如果没有设置手动映射，将被自动映射。
+    在自动映射处理完毕后，再处理手动映射。-->
+
+    <resultMap id="userInfoResult" type="user">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <!--一对一关联查询：有一个-->
+        <association property="userInfoEntity" column="name" javaType="UserInfoEntity" resultMap="infoResult" />
+    </resultMap>
+
+         <!--单独拿出来可以重复使用-->
+    <resultMap id="infoResult" type="UserInfoEntity">
+        <id property="name" column="name" />
+        <result property="idNo" column="id_no" />
+        <result property="uname" column="uname" />
+        <result property="phone" column="phone" />
+    </resultMap>
+         <!--也可以将以上两个结果集组合到一起-->
+    <resultMap id="userInfoResult" type="user">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <association property="userInfoEntity" column="name" javaType="UserInfoEntity">
+            <id property="name" column="name" />
+            <result property="idNo" column="id_no" />
+            <result property="uname" column="uname" />
+            <result property="phone" column="phone" />
+        </association>
+    </resultMap>
+
+    <!--一对多的结果集映射,当然也可以将其拆分为两个,从而提高重用性-->
+     <resultMap id="userBlogResult" type="user">
+         <id property="id" column="id" />
+         <result property="name" column="name" />
+         <collection property="blogEntityList" javaType="ArrayList" ofType="blog">
+             <id property="blogId" column="blog_id" />
+             <result property="title" column="title" />
+             <result property="topic" column="topic" />
+         </collection>
+     </resultMap>
+
+    <!--discriminator 很像java 里面的switch语句-->
+    <resultMap id="vehicleResult" type="Vehicle">
+        <id property="id" column="id" />
+        <result property="vin" column="vin"/>
+        <result property="year" column="year"/>
+        <result property="make" column="make"/>
+        <result property="model" column="model"/>
+        <result property="color" column="color"/>
+        <discriminator javaType="int" column="vehicle_type">
+            <case value="1" resultType="carResult">
+                <result property="doorCount" column="door_count" />
+            </case>
+            <case value="2" resultType="truckResult">
+                <result property="boxSize" column="box_size" />
+                <result property="extendedCab" column="extended_cab" />
+            </case>
+            <case value="3" resultType="vanResult">
+                <result property="powerSlidingDoor" column="power_sliding_door" />
+            </case>
+            <case value="4" resultType="suvResult">
+                <result property="allWheelDrive" column="all_wheel_drive" />
+            </case>
+        </discriminator>
+    </resultMap>
+
+    <select id="getUserInfoById" resultMap="userInfoResult" parameterType="int" >
+        select
+          user.id,
+          user.name,
+          user.pwd,
+          ui.id_no,
+          ui.phone,
+          ui.uname
+        from user left outer join user_info ui on user.name=ui.name
+        where user.id=#{id}
+    </select>
+
+    <select id="getUserById" resultMap="userBlogResult" >
+        select
+        user.id,
+        user.name,
+        user.pwd,
+        b.id,
+        b.title,
+        b.topic
+        from user
+         left outer join blog b on user.blog_id=b.id
+       where user.id=#{id};
+    </select>
+</mapper>

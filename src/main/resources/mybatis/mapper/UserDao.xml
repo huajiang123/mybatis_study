@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huajiang.mybatis.dao.UserDao">
+    <!--这个元素可以被用来定义可重用的 SQL 代码段，这些 SQL 代码可以被包含在其他语句中。
+    它可以（在加载的时候）被静态地设置参数。
+    在不同的包含语句中可以设置不同的值到参数占位符上。比如： -->
+    <sql id="userColumns" >
+        ${alias}.id,${alias}.name,${alias}.pwd
+    </sql>
+
+    <select id="queryAll" resultType="com.huajiang.mybatis.pojo.UserEntity">
+        select
+        <include refid="userCloums"><property name="alias" value="user"/></include>
+        from user;
+  </select>
+
+    <select id="queryById" resultType="com.huajiang.mybatis.pojo.UserEntity">
+        select  * from  user  where id= #{id};
+    </select>
+
+    <insert id="addUser" parameterType="com.huajiang.mybatis.pojo.UserEntity" >
+        <!--selectKey 元素中的语句将会首先运行，Author 的 id 会被设置，然后插入语句会被调用。
+        这可以提供给你一个与数据库中自动生成主键类似的行为，同时保持了 Java 代码的简洁。-->
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+            select CAST(RANDOM()*1000000 as INTEGER) a from SYSIBM.SYSDUMMY1
+        </selectKey>
+        <!--尽管所有这些选项很强大，但大多时候你只须简单地指定属性名，
+        其他的事情 MyBatis 会自己去推断，顶多要为可能为空的列指定 jdbcType 例：#{middleInitial,jdbcType=VARCHAR}-->
+        insert  into user(id,name,pwd) value (id,#{dept.name},#{dept.pwd})
+    </insert>
+
+
+</mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+    <select id="testIf" resultType="user">
+        select * from user where id=#{id}
+        <if test="name != null">
+            and name = #{name}
+        </if>
+    </select>
+    
+    <select id="testChoose" resultType="user">
+        select *
+        from user where id=#{id}
+       <choose>
+           <when test="name != null">
+               and name =#{name}
+           </when>
+           <when test="title !=null">
+               and title like #{title}
+           </when>
+           <otherwise>
+               and blog_id =#{blog_id}
+           </otherwise>
+       </choose>;
+    </select>
+
+    <!--where 一般与if一起使用 防止if 条件产生不必要sql格式错误-->
+    <select id="testWhere" resultType="user">
+        select *
+        from user
+        <where>
+            <if test="id !=null">
+                user.id=#{id}
+            </if>
+            <if test="title !=null">
+                and title=#{title}
+            </if>
+        </where>
+    </select>
+
+    <select id="testTrim" resultType="user">
+        select *
+        from user
+        <trim prefix="where" prefixOverrides="and |or">
+            <if test="id !=null">
+                user.id=#{id}
+            </if>
+            <if test="title !=null">
+                and title=#{title}
+            </if>
+        </trim>
+    </select>
+
+    <select id="testForeach" resultType="user">
+        select *
+        from user
+         where id in
+               <!--当使用 Map 对象（或者 Map.Entry 对象的集合）时，index 是键，item 是值-->
+       <foreach collection="list" item="id" index="index" open="(" separator="," close=")">
+           #{id}
+       </foreach>
+    </select>
+</mapper>
