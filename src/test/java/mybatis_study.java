@@ -2,6 +2,7 @@ import com.huajiang.mybatis.dao.UserDao;
 import com.huajiang.mybatis.pojo.UserEntity;
 import com.sun.org.apache.xml.internal.serialize.LineSeparator;
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;

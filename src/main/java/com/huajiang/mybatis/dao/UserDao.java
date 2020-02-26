@@ -33,5 +33,6 @@ public interface UserDao {
      @Select("select * from user where ${column}=#{value}")
      UserEntity queryByColumn(@Param("column") String column,@Param("value") String value);
 
+     UserEntity queryById(@Param("id") String id);
 
 }

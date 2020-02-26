@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3fc7bb28-12f5-4385-94ad-88e8256c847d" name="Default Changelist" comment="" />
+    <list default="true" id="3fc7bb28-12f5-4385-94ad-88e8256c847d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/MDFile/mybatis_study" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/huajiang/mybatis/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/huajiang/mybatis/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/UserInfoDao" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/mapper/UserInfoDao" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/mybatis_study.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/mybatis_study.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,6 +36,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -46,6 +56,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
@@ -96,6 +107,8 @@
       <updated>1581062449797</updated>
       <workItem from="1581062458838" duration="10148000" />
       <workItem from="1581124085827" duration="22399000" />
+      <workItem from="1582626039590" duration="8688000" />
+      <workItem from="1582679252459" duration="6729000" />
     </task>
     <servers />
   </component>
@@ -111,10 +124,10 @@
       <screen x="65" y="24" width="1301" height="744" />
     </state>
     <state x="315" y="44" key="#com.intellij.execution.impl.EditConfigurationsDialog/65.24.1301.744@65.24.1301.744" timestamp="1581149820881" />
-    <state x="294" y="182" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1581148522399">
+    <state x="294" y="182" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1582626142479">
       <screen x="65" y="24" width="1301" height="744" />
     </state>
-    <state x="294" y="182" key="#com.intellij.fileTypes.FileTypeChooser/65.24.1301.744@65.24.1301.744" timestamp="1581148522399" />
+    <state x="294" y="182" key="#com.intellij.fileTypes.FileTypeChooser/65.24.1301.744@65.24.1301.744" timestamp="1582626142479" />
     <state x="517" y="68" key="#com.intellij.ide.util.MemberChooser" timestamp="1581153142735">
       <screen x="65" y="24" width="1301" height="744" />
     </state>
@@ -135,10 +148,10 @@
       <screen x="65" y="24" width="1301" height="744" />
     </state>
     <state width="1249" height="244" key="GridCell.Tab.0.right/65.24.1301.744@65.24.1301.744" timestamp="1581080240010" />
-    <state x="326" y="211" key="com.intellij.ide.util.TipDialog" timestamp="1581124085595">
+    <state x="326" y="211" key="com.intellij.ide.util.TipDialog" timestamp="1582679250288">
       <screen x="65" y="24" width="1301" height="744" />
     </state>
-    <state x="326" y="211" key="com.intellij.ide.util.TipDialog/65.24.1301.744@65.24.1301.744" timestamp="1581124085595" />
+    <state x="326" y="211" key="com.intellij.ide.util.TipDialog/65.24.1301.744@65.24.1301.744" timestamp="1582679250288" />
     <state x="355" y="89" width="719" height="678" key="search.everywhere.popup" timestamp="1581157053370">
       <screen x="65" y="24" width="1301" height="744" />
     </state>
